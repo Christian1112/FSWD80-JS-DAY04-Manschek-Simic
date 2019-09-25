@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>HOTEL AVAILABILITY</title>
+  <style>
+  table {
+    border-collapse: collapse;
+  }
+  table td,
+  table th {
+    border: 1px solid #000;
+  }
+  </style>
+</head>
+
+<body>
+  <table id="table">
+  </table>
+  <script>
+  function HotelConstructor(name, rooms) {
+    this.name = name;
+    this.rooms = rooms;
+    this.booked = Math.floor(Math.random() * 10) + 1;
+    this.checkAvailability = function() {
+      return this.rooms - this.booked;
+    };
+  }
+  var requestedRooms = Number(prompt("How many nights do you want?"));
+  var hotel1 = new HotelConstructor("HotelOne", 10);
+  var hotel2 = new HotelConstructor("HotelDublo", 11);
+  var hotel3 = new HotelConstructor("HotelTree", 12);
+  var hotel4 = new HotelConstructor("Hotel '4'", 13);
+  var hotels = [hotel1, hotel2, hotel3, hotel4];
+  function Update() {
+    var table = document.getElementById('table');
+    table.innerHTML = "<tr><th>Name</th><th>Rooms</th><th>Booked</th><th>Book now</th></tr>";
+    for (let i = 0; i < hotels.length; i++) {
+    	var btn = "";
+      if (hotels[i].checkAvailability() >= requestedRooms) {
+      	btn="<input type='button' value='book now!'>"
+      }
+      table.innerHTML += "<tr><td>" + hotels[i].name + "</td><td>" + hotels[i].rooms + "</td><td>" + hotels[i].booked +  "</td><td>" + btn +  "</td></tr>";
+    }
+  }
+  Update();
+  </script>
+</body>
+
+</html>
